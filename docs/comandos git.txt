@@ -1,0 +1,18 @@
+Descargar e Instalar GIT
+Configurar GIT
+    > git config --global user.name "Su NOmbre"
+    > git config --global user.email "sucorreo@mail.com"
+Crear una cuenta en Github, GitLab, Bitbucket
+---------------------
+Comandos de GIT
+
+- para iniciar un nuevo repositorio
+    > git init
+- si ya existe el repositorio
+    > git clone <direccion>
+- Enlazar el repositorio local de Laravel con el repositorio remoto
+    > git remote add origin <direccion>
+    > git remote add origin https://github.com/cchura94/backend-app-laravel-angular.git
+    
+
+
