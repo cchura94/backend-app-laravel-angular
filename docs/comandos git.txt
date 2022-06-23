@@ -13,6 +13,8 @@ Comandos de GIT
 - Enlazar el repositorio local de Laravel con el repositorio remoto
     > git remote add origin <direccion>
     > git remote add origin https://github.com/cchura94/backend-app-laravel-angular.git
-    
-
+- ----------------------------------------------
+git add .
+git commit -m "Api Rest Login"
+git push origin master
 
