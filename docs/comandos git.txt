@@ -17,4 +17,9 @@ Comandos de GIT
 git add .
 git commit -m "Api Rest Login"
 git push origin master
+------------------------------------------------
 
+- Para crear nueva rama
+    > git branch ramaCris
+- Para Cambiar de rama
+    > git checkout ramaCris
