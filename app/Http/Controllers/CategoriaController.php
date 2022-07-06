@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Http\Requests\StoreCategoriaRequest;
 use App\Http\Requests\UpdateCategoriaRequest;
+use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
@@ -15,18 +16,10 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::get();
+        return response()->json($categorias, 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -34,9 +27,18 @@ class CategoriaController extends Controller
      * @param  \App\Http\Requests\StoreCategoriaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoriaRequest $request)
+    public function store(Request $request)
     {
-        //
+        // validar
+        $request->validate([
+            "nombre" => "required|unique:categorias"
+        ]);
+        $cat = new Categoria;
+        $cat->nombre = $request->nombre;
+        $cat->descripcion = $request->descripcion;
+        $cat->save();
+
+        return response()->json(["mensaje" => "Categoria registrada"], 200);
     }
 
     /**
@@ -47,19 +49,9 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
+        return response()->json($categoria, 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Categoria  $categoria
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Categoria $categoria)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -68,9 +60,18 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoriaRequest $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            "nombre" => "required|unique:categorias,nombre,$id"
+        ]);
+        $categoria = Categoria::find($id);
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->save();
+
+        return response()->json(["mensaje" => "Categoria modificada"], 200);
+    
     }
 
     /**
@@ -79,8 +80,11 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->delete();
+        return response()->json(["mensaje" => "Categoria eliminada"], 200);
+    
     }
 }
