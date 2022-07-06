@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductoController extends Controller
 {
@@ -15,7 +16,8 @@ class ProductoController extends Controller
     public function index()
     {
         // /api/producto?page=1
-        $productos = Producto::paginate(10);
+        // return DB::table("productos")->paginate(10);
+        $productos = Producto::with('categoria')->paginate(1);
 
         return response()->json($productos, 200);
     }
@@ -38,7 +40,7 @@ class ProductoController extends Controller
         $producto->nombre = $request->nombre;
         $producto->stock = $request->stock;
         $producto->precio = $request->precio;
-        $producto->descipcion = $request->descipcion;
+        $producto->descripcion = $request->descripcion;
         $producto->categoria_id = $request->categoria_id;
         $producto->save();
 
@@ -74,7 +76,7 @@ class ProductoController extends Controller
         $producto->nombre = $request->nombre;
         $producto->stock = $request->stock;
         $producto->precio = $request->precio;
-        $producto->descipcion = $request->descipcion;
+        $producto->descripcion = $request->descripcion;
         $producto->categoria_id = $request->categoria_id;
         $producto->save();
         return response()->json(["mensaje" => "producto modificado"], 201);
