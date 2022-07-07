@@ -17,7 +17,7 @@ class ProductoController extends Controller
     {
         // /api/producto?page=1
         // return DB::table("productos")->paginate(10);
-        $productos = Producto::with('categoria')->paginate(1);
+        $productos = Producto::with('categoria')->paginate(2);
 
         return response()->json($productos, 200);
     }
@@ -93,4 +93,22 @@ class ProductoController extends Controller
         $producto->delete();
         return response()->json(["mensaje" => "producto eliminado"], 201);
     }
+
+    public function actualizarImagen(Request $request, $id)
+    {
+        if($file = $request->file("imagen")){
+            
+            $direccion_archivo = time()."-".$file->getClientOriginalName();
+            $file->move("imagenes/",$direccion_archivo);
+            
+            $producto = Producto::find($id);
+            $producto->imagen = "imagenes/".$direccion_archivo;
+            $producto->save();
+
+            return response()->json(["mensaje" => "Imagen Actualizada"]);
+        }
+        return response()->json(["mensaje" => "Debe enviar una imagen"]);
+    }
+    // application/json
+    // $fd = new formData
 }
