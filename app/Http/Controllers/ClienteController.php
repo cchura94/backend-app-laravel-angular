@@ -16,7 +16,7 @@ class ClienteController extends Controller
     {
         $buscar = $request->q;
         $clientes = Cliente::orWhere("nombre_completo", "like", "%".$buscar."%")
-                            ->orWhere("ci-nit", "like", "%".$buscar."%")
+                            ->orWhere("ci_nit", "like", "%".$buscar."%")
                             ->paginate(20);
         return response()->json($clientes, 200);
     }
