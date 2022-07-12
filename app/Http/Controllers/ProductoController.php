@@ -13,11 +13,19 @@ class ProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // /api/producto?page=1
         // return DB::table("productos")->paginate(10);
-        $productos = Producto::with('categoria')->paginate(2);
+        if($request->buscar or $request->buscar != null ){
+            $productos = Producto::orWhere("nombre", "like", "%".$request->buscar ."%")
+                                    ->orWhere("cantidad", "like", "%".$request->buscar ."%")
+                                    ->with('categoria')
+                                    ->paginate(2);
+        }else{
+
+            $productos = Producto::with('categoria')->paginate(2);
+        }
 
         return response()->json($productos, 200);
     }

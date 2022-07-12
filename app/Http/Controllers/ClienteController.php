@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 
 class ClienteController extends Controller
@@ -11,9 +12,13 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $buscar = $request->q;
+        $clientes = Cliente::orWhere("nombre_completo", "like", "%".$buscar."%")
+                            ->orWhere("ci-nit", "like", "%".$buscar."%")
+                            ->paginate(20);
+        return response()->json($clientes, 200);
     }
 
     /**
