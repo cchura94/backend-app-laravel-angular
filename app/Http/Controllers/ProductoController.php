@@ -21,10 +21,10 @@ class ProductoController extends Controller
             $productos = Producto::orWhere("nombre", "like", "%".$request->buscar ."%")
                                     ->orWhere("cantidad", "like", "%".$request->buscar ."%")
                                     ->with('categoria')
-                                    ->paginate(2);
+                                    ->paginate(10);
         }else{
 
-            $productos = Producto::with('categoria')->paginate(2);
+            $productos = Producto::with('categoria')->paginate(10);
         }
 
         return response()->json($productos, 200);
