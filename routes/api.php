@@ -46,6 +46,8 @@ Route::middleware("auth:sanctum")->group(function(){
     Route::apiResource("pedido", PedidoController::class);
 });
 
+Route::get("/pdf", [PedidoController::class, "reportePedidos"]);
+
 Route::get("/no-authorizado", function(){
     return response()->json(["mensaje" => "Necesitas un token de autorizacion para ver los datos"]);
 })->name("login");
