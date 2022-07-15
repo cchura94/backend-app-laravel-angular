@@ -51,7 +51,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "token": "1b7bc4cfae0266012d62953d98445ac2e8e1c7462fa40f759a4a78e44e4c3f3c",
+    "token": "3697a3d2f860bb97391105f3eba267730bd2d123b40342d1a32314f15f9e7edb",
     "email": "cristian@mail.com",
     "password": "cristian54321",
     "password_confirmation": "cristian54321"    
